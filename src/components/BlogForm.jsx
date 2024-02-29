@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const BlogForm = ({onSubmit , onChangeTitle , onChangeAuthor,onChangeUrl, onChangeLike}) => {
-  const [blogForm, setBlog] = useState({ title: '', author: '', url: '' })
+  const [blogForm, setBlog] = useState({ title: '', author: '', url: '',likes: '' })
 
   const addBlog = (event) => {
     event.preventDefault()

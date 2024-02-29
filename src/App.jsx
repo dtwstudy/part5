@@ -86,6 +86,23 @@ const App = () => {
 
   }
 
+  const hadleOnLike = (blog) => {
+
+    try {
+      console.log(blog)
+      const res = blogService.update(blog.id,blog)
+      showMessage('Like added to blog ', 'successful')
+      
+
+    }
+    catch (error) {
+      console.log(error)
+      showMessage('Error add like', 'error')
+    }
+
+  }
+
+
   const logOut = () => {
 
     setUser(null)
@@ -122,7 +139,7 @@ const App = () => {
 
       <h2>Blogs</h2>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} hadleOnLike={hadleOnLike} />
       )}
     </div>
   )
