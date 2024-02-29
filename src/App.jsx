@@ -93,7 +93,7 @@ const App = () => {
     window.localStorage.clear()
   }
 
-  const loginForm = () => {
+  const LoginIn = () => {
     const hideWhenVisible = { display: loginVisible ? 'none' : '' }
     const showWhenVisible = { display: loginVisible ? '' : 'none' }
 
@@ -108,7 +108,7 @@ const App = () => {
             password={password}
             handleUsernameChange={({ target }) => setUsername(target.value)}
             handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
+            handleLogin={handleLogin}
           />
           <button onClick={() => setLoginVisible(false)}>cancel</button>
         </div>
@@ -116,7 +116,7 @@ const App = () => {
     )
   }
 
- const blogsView = () => (
+ const BlogView = () => (
 
     <div>
 
@@ -131,11 +131,12 @@ const App = () => {
     return (
       <>
         <Notification message={message.text} color={message.color} />
-        <p>{user.username}<button onClick={logOut}>logout</button></p>
-        <BlogForm onSubmit={onSubmit} />
-        <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <p>{user.username} logged in<button onClick={logOut}>logout</button></p>
+        
+        <Togglable buttonLabel="new blog" name="cancel" ref={blogFormRef}>
           <BlogForm onSubmit={onSubmit} />
         </Togglable>
+        <BlogView />
       </>
     )
   }
@@ -143,8 +144,8 @@ const App = () => {
     return (
       <>
         <Notification message={message.text} color={message.color} />
-        {loginForm()}
-        {blogsView()}
+        <LoginIn />
+        <BlogView />
       </>
     )
   }
