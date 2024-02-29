@@ -19,7 +19,9 @@ const Blog = ({ blog ,hadleOnLike ,hadleOnDelete}) =>
    
   }
   const onDelete = (id) => {
-    hadleOnDelete(id)
+    const yes  = confirm("Remove blog")
+    if(yes) hadleOnDelete(id)
+   
   }
   return (
   <div style={blogStyle}>
