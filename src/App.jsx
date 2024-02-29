@@ -102,6 +102,20 @@ const App = () => {
 
   }
 
+  const hadleOnDelete = (id) => {
+
+    try {
+      console.log(id)
+      const res = blogService.remove(id)
+      showMessage('Blog deleted ', 'successful')
+      }
+    catch (error) {
+      console.log(error)
+      showMessage('Error delete Blog', 'error')
+    }
+
+  }
+
 
   const logOut = () => {
 
@@ -139,7 +153,7 @@ const App = () => {
 
       <h2>Blogs</h2>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} hadleOnLike={hadleOnLike} />
+        <Blog key={blog.id} blog={blog} hadleOnLike={hadleOnLike} hadleOnDelete={hadleOnDelete} />
       )}
     </div>
   )

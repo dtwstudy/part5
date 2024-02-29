@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Togglable from '../components/Togglable'
 
 
-const Blog = ({ blog ,hadleOnLike}) =>
+const Blog = ({ blog ,hadleOnLike ,hadleOnDelete}) =>
 {  
   const blogStyle = {
     paddingTop: 10,
@@ -18,6 +18,9 @@ const Blog = ({ blog ,hadleOnLike}) =>
     hadleOnLike(newLike)
    
   }
+  const onDelete = (id) => {
+    hadleOnDelete(id)
+  }
   return (
   <div style={blogStyle}>
     {blog.title}
@@ -25,6 +28,7 @@ const Blog = ({ blog ,hadleOnLike}) =>
       <p>{blog.url}  </p>
       <p> {blog.likes} <button onClick={()=>UpdateLike(blog)}>like</button> </p>
       <p> {blog.author} </p>
+      <button onClick={()=>onDelete(blog.id)}>delete</button>
     </Togglable>
   </div>  
 )}
