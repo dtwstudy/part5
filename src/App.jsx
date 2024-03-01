@@ -15,7 +15,7 @@ const App = () => {
   const [message, setMessageAlert] = useState({ text: '', color: '', status: false })
   const [loginVisible, setLoginVisible] = useState(false)
   const blogFormRef = useRef()
-  const [sortFlag , setFlag] = useState(false)
+  const [sortFlag, setFlag] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -75,12 +75,12 @@ const App = () => {
   const onSubmit = (blog) => {
 
     try {
-      const res = blogService.create(blog).then(res=>{
-      setBlogs(blogs.concat(res))
-      showMessage('You successful added new blog post ', 'successful')
-      blogFormRef.current.toggleVisibility()
+      const res = blogService.create(blog).then(res => {
+        setBlogs(blogs.concat(res))
+        showMessage('You successful added new blog post ', 'successful')
+        blogFormRef.current.toggleVisibility()
       })
-    
+
 
     }
     catch (error) {
@@ -93,17 +93,17 @@ const App = () => {
   const hadleOnLike = (blog) => {
 
     try {
-      
-      const res = blogService.update(blog.id,blog).then(res=>{
-       
-        const newBlogs  = blogs.map(bl=>{
-          if (bl.id == res.id)  bl.likes = res.likes
+
+      const res = blogService.update(blog.id, blog).then(res => {
+
+        const newBlogs = blogs.map(bl => {
+          if (bl.id === res.id) bl.likes = res.likes
           return bl
         })
         setBlogs(newBlogs)
       })
       showMessage('Like added to blog ', 'successful')
-      
+
 
     }
     catch (error) {
@@ -116,12 +116,12 @@ const App = () => {
   const hadleOnDelete = (id) => {
 
     try {
-     
+
       const res = blogService.remove(id)
-      const newBlogs = blogs.filter((blog)=> blog.id !== id)
+      const newBlogs = blogs.filter((blog) => blog.id !== id)
       setBlogs(newBlogs)
       showMessage('Blog deleted ', 'successful')
-      }
+    }
     catch (error) {
       console.log(error)
       showMessage('Error delete Blog', 'error')
@@ -130,21 +130,21 @@ const App = () => {
   }
 
   const sortBlogs = () => {
-    const status  = sortFlag
-   setFlag(!status)
-    const sortedBlogs =    blogs.toSorted((a,b)=>{
-       if(sortFlag){
-        if(a.likes > b.likes) return -1
-        else if(a.likes < b.likes) return 1
-       }
-       else{
-        if(a.likes < b.likes) return -1
-        else if(a.likes > b.likes) return 1
-       }
-       
-        return 0
+    const status = sortFlag
+    setFlag(!status)
+    const sortedBlogs = blogs.toSorted((a, b) => {
+      if (sortFlag) {
+        if (a.likes > b.likes) return -1
+        else if (a.likes < b.likes) return 1
+      }
+      else {
+        if (a.likes < b.likes) return -1
+        else if (a.likes > b.likes) return 1
+      }
+
+      return 0
     })
-   
+
     setBlogs(sortedBlogs)
   }
 
@@ -152,7 +152,7 @@ const App = () => {
   const logOut = () => {
 
     setUser(null)
-    if (window.localStorage.getItem("loggedBlogappUser")) window.localStorage.removeItem("loggedBlogappUser")
+    if (window.localStorage.getItem('loggedBlogappUser')) window.localStorage.removeItem('loggedBlogappUser')
     window.localStorage.clear()
   }
 
@@ -179,7 +179,7 @@ const App = () => {
     )
   }
 
- const BlogView = () => (
+  const BlogView = () => (
 
     <div>
 
@@ -195,11 +195,11 @@ const App = () => {
       <>
         <Notification message={message.text} color={message.color} />
         <p>{user.username} logged in<button onClick={logOut}>logout</button></p>
-        
+
         <Togglable buttonLabel="new blog" name="cancel" ref={blogFormRef}>
           <BlogForm onSubmit={onSubmit} />
         </Togglable>
-        <button onClick={()=>sortBlogs()}>sort</button>
+        <button onClick={() => sortBlogs()}>sort</button>
         <BlogView />
       </>
     )
@@ -209,7 +209,7 @@ const App = () => {
       <>
         <Notification message={message.text} color={message.color} />
         <LoginIn />
-        <button onClick={()=>sortBlogs()}>sort</button>
+        <button onClick={() => sortBlogs()}>sort</button>
         <BlogView />
       </>
     )
