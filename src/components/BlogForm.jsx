@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-const BlogForm = ({onSubmit , onChangeTitle , onChangeAuthor,onChangeUrl, onChangeLike}) => {
+const BlogForm = ({onSubmit}) => {
   const [blogForm, setBlog] = useState({ title: '', author: '', url: '',likes: 0 })
 
   const addBlog = (event) => {
@@ -24,5 +25,10 @@ return (
     <button type="submit">save</button>
   </form>
 )}
+
+BlogForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+ 
+}
 
 export default BlogForm
