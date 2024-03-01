@@ -15,6 +15,7 @@ const App = () => {
   const [message, setMessageAlert] = useState({ text: '', color: '', status: false })
   const [loginVisible, setLoginVisible] = useState(false)
   const blogFormRef = useRef()
+  const [sortFlag , setFlag] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -74,9 +75,12 @@ const App = () => {
   const onSubmit = (blog) => {
 
     try {
-      const res = blogService.create(blog)
+      const res = blogService.create(blog).then(res=>{
+      setBlogs(blogs.concat(res))
       showMessage('You successful added new blog post ', 'successful')
       blogFormRef.current.toggleVisibility()
+      })
+    
 
     }
     catch (error) {
@@ -89,8 +93,15 @@ const App = () => {
   const hadleOnLike = (blog) => {
 
     try {
-      console.log(blog)
-      const res = blogService.update(blog.id,blog)
+      
+      const res = blogService.update(blog.id,blog).then(res=>{
+       
+        const newBlogs  = blogs.map(bl=>{
+          if (bl.id == res.id)  bl.likes = res.likes
+          return bl
+        })
+        setBlogs(newBlogs)
+      })
       showMessage('Like added to blog ', 'successful')
       
 
@@ -105,8 +116,10 @@ const App = () => {
   const hadleOnDelete = (id) => {
 
     try {
-      console.log(id)
+     
       const res = blogService.remove(id)
+      const newBlogs = blogs.filter((blog)=> blog.id !== id)
+      setBlogs(newBlogs)
       showMessage('Blog deleted ', 'successful')
       }
     catch (error) {
@@ -114,6 +127,25 @@ const App = () => {
       showMessage('Error delete Blog', 'error')
     }
 
+  }
+
+  const sortBlogs = () => {
+    const status  = sortFlag
+   setFlag(!status)
+    const sortedBlogs =    blogs.toSorted((a,b)=>{
+       if(sortFlag){
+        if(a.likes > b.likes) return -1
+        else if(a.likes < b.likes) return 1
+       }
+       else{
+        if(a.likes < b.likes) return -1
+        else if(a.likes > b.likes) return 1
+       }
+       
+        return 0
+    })
+   
+    setBlogs(sortedBlogs)
   }
 
 
@@ -167,6 +199,7 @@ const App = () => {
         <Togglable buttonLabel="new blog" name="cancel" ref={blogFormRef}>
           <BlogForm onSubmit={onSubmit} />
         </Togglable>
+        <button onClick={()=>sortBlogs()}>sort</button>
         <BlogView />
       </>
     )
@@ -176,6 +209,7 @@ const App = () => {
       <>
         <Notification message={message.text} color={message.color} />
         <LoginIn />
+        <button onClick={()=>sortBlogs()}>sort</button>
         <BlogView />
       </>
     )
