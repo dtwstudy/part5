@@ -9,8 +9,6 @@ import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [message, setMessageAlert] = useState({ text: '', color: '', status: false })
   const [loginVisible, setLoginVisible] = useState(false)
@@ -45,8 +43,8 @@ const App = () => {
 
   }
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
+  const handleLogin = async (username, password) => {
+
 
     try {
       const user = await loginService.login({
@@ -57,8 +55,7 @@ const App = () => {
       )
       blogService.setToken(user.token)
       setUser(user)
-      setUsername('')
-      setPassword('')
+
       showMessage('Welcome back', 'successful')
     } catch (exception) {
 
@@ -165,12 +162,7 @@ const App = () => {
           <button onClick={() => setLoginVisible(true)}>log in</button>
         </div>
         <div style={showWhenVisible}>
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleLogin={handleLogin}
+          <LoginForm handleLogin={handleLogin}
           />
           <button onClick={() => setLoginVisible(false)}>cancel</button>
         </div>
