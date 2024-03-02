@@ -12,7 +12,6 @@ const Blog = ({ blog, hadleOnLike, hadleOnDelete }) => {
   }
   const blogFormRef = useRef()
   const UpdateLike = (blog) => {
-
     const newLike = (blog.likes === null) ? { ...blog, likes: 0 } : { ...blog, likes: blog.likes + 1 }
     hadleOnLike(newLike)
 
@@ -23,12 +22,12 @@ const Blog = ({ blog, hadleOnLike, hadleOnDelete }) => {
 
   }
   return (
-    <div style={blogStyle}>
-      {blog.title}
+    <div style={blogStyle} className='blog'>
+      <p id='title'> {blog.title} {blog.author}</p>
       <Togglable buttonLabel="show" name="hide" ref={blogFormRef}>
-        <p>{blog.url}  </p>
-        <p> {blog.likes} <button onClick={() => UpdateLike(blog)}>like</button> </p>
-        <p> {blog.author} </p>
+        <p id='url'>{blog.url}  </p>
+        <p id='like'> {blog.likes}</p> <button id="blike" onClick={() => UpdateLike(blog)}>like</button> 
+        <p id='author'> {blog.author} </p>
         <button onClick={() => onDelete(blog.id)}>delete</button>
       </Togglable>
     </div>

@@ -73,7 +73,6 @@ const App = () => {
 
 
   const onSubmit = (blog) => {
-
     try {
       const res = blogService.create(blog).then(res => {
         setBlogs(blogs.concat(res))

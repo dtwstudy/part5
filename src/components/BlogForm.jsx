@@ -22,7 +22,7 @@ const BlogForm = ({ onSubmit }) => {
       <br /><label >author</label><input value={blogForm.author} id="author" onChange={({ target }) => setBlog({ ...blogForm, author: target.value })} type='text' name='author' />
       <br /><label >url</label><input value={blogForm.url} id="url" onChange={({ target }) => setBlog({ ...blogForm, url: target.value })} type='text' name='url' />
 
-      <button type="submit">save</button>
+      <button type="submit" id='send'>save</button>
     </form>
   )
 }
