@@ -105,6 +105,7 @@ describe('Blog app', function () {
         cy.contains('delete').click()
         cy.contains('Blog deleted')
       })
+      
     })
 
     describe('Sort by like', function () {
@@ -119,8 +120,8 @@ describe('Blog app', function () {
       it('sort buton click', function () {
         cy.wait(500)
         cy.contains('sort').click()
-        cy.get('.like').eq(0).should('contain', 8)
-        cy.get('.like').eq(1).should('contain', 5)
+        cy.get('.title').eq(0).should('contain', 'Sample 2 Author 2')
+        cy.get('.title').eq(1).should('contain', 'Sample 1 Author 1')
       })
 
     })
