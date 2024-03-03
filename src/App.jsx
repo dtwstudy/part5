@@ -130,12 +130,12 @@ const App = () => {
     setFlag(!status)
     const sortedBlogs = blogs.toSorted((a, b) => {
       if (sortFlag) {
-        if (a.likes > b.likes) return -1
-        else if (a.likes < b.likes) return 1
-      }
-      else {
         if (a.likes < b.likes) return -1
         else if (a.likes > b.likes) return 1
+      }
+      else {
+        if (a.likes > b.likes) return -1
+        else if (a.likes < b.likes) return 1
       }
 
       return 0

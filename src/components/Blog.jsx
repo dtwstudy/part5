@@ -23,10 +23,10 @@ const Blog = ({ blog, hadleOnLike, hadleOnDelete }) => {
   }
   return (
     <div style={blogStyle} className='blog'>
-      <p id='title'> {blog.title} {blog.author}</p>
+      <p id='title' className='title'> {blog.title} {blog.author}</p>
       <Togglable buttonLabel="show" name="hide" ref={blogFormRef}>
         <p id='url'>{blog.url}  </p>
-        <p id='like'> {blog.likes}</p> <button id="blike" onClick={() => UpdateLike(blog)}>like</button> 
+        <p id='like' className='like'> {blog.likes}</p> <button id="blike" onClick={() => UpdateLike(blog)}>like</button> 
         <p id='author'> {blog.author} </p>
         <button onClick={() => onDelete(blog.id)}>delete</button>
       </Togglable>
